@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="GothongApp.Views.UsersPage" NavigationPage.HasNavigationBar="false" xmlns:scale="clr-namespace:GothongApp.Controls.Scale" xmlns:predef="clr-namespace:GothongApp.Services.Predefined" xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms">
-
-    <Button Text="Fetch" Command="{Binding FetchCommand}" />
-
-</ContentPage>

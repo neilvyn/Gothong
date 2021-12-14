@@ -32,9 +32,15 @@ namespace GothongApp.Services.Predefined
 
         #region screen_pages
         public static string NAVIGATION_PAGE = "NavigationPage";
-        public static string UserFormPage = "UserFormPage";
-        public static string UsersPage = "UsersPage";
-        public static string UserDetailPage = "UserDetailPage";
+        public static string StudentsPage = "UsersPage";
+        public static string StudentFormPopupPage = "StudentFormPopupPage";
+        #endregion
+
+        #region colors
+        public static readonly Color THEME_COLOR_BLUE = Color.FromHex("001F52");
+        public static readonly Color HEADER_COLOR = Color.FromHex("d1d1d1");
+        public static readonly Color BUTTON_COLOR = Color.FromHex("097bed");
+        public static readonly Color ALERT_COLOR = Color.Red;
         #endregion
 
         #region alert_messages

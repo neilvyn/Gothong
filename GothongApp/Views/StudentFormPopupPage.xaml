@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="GothongApp.Views.StudentFormPopupPage" NavigationPage.HasNavigationBar="false" xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns:services="clr-namespace:GothongApp.Services.Predefined" xmlns:scale="clr-namespace:GothongApp.Controls.Scale" xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup">
+
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation PositionIn="Center" PositionOut="Center" ScaleIn="1.2" ScaleOut="0.8" DurationIn="200" DurationOut="200" EasingIn="SinOut" EasingOut="SinIn" HasBackgroundAnimation="True" />
+    </pages:PopupPage.Animation>
+
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="{scale:ScaleThickness Value='30,0,30,0'}">
+        <Frame IsClippedToBounds="true" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Padding="0" HasShadow="false" CornerRadius="5" BackgroundColor="White">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="{scale:ScaleThickness Value='10,10,10,5'}">
+                    <Label Text = "Student Form" TextColor="{x:Static services:Constants.THEME_COLOR_BLUE}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" FontSize="{scale:ScaleFontSize Value=15}" FontAttributes="Bold" />
+                    <Image Source="RedX" WidthRequest="{scale:ScaleWidth Value=20}" HeightRequest="{scale:ScaleHeight Value=20}" HorizontalOptions="End" VerticalOptions="Center" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CloseCommand}" NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+
+                <BoxView HorizontalOptions="FillAndExpand" BackgroundColor="Silver" HeightRequest="1" />
+
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="End" Padding="{scale:ScaleThickness Value='10,5,10,10'}">
+                    <StackLayout BackgroundColor="{x:Static services:Constants.THEME_COLOR_BLUE}" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="{scale:ScaleHeight Value=40}">
+                        <Button Text="Create" Command="{Binding ActiveCommand}" TextColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" FontSize="{scale:ScaleFontSize Value=16}" BorderColor="Transparent" BackgroundColor="Transparent" />
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</pages:PopupPage>

@@ -4,7 +4,7 @@ using Prism.Mvvm;
 
 namespace GothongApp.Models.View
 {
-    public class UsersPageModel : BindableBase
+    public class StudentPageModel : BindableBase
     {
         // key: rpro, datatype: bool, property: HasData
         private bool _HasData = false;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ERNITech.Controls.Utilities;
+using GothongApp.Controls.LocalData;
 using GothongApp.Models;
 using GothongApp.Models.View;
 using GothongApp.Services.Network;
@@ -16,14 +17,15 @@ using Xamarin.Forms;
 
 namespace GothongApp.ViewModels
 {
-    public class UsersPageViewModel : ViewModelBase, IResponseConnector
+    public class StudentsPageViewModel : ViewModelBase, IResponseConnector
     {
-        // key: rpro, datatype: UsersPageModel, property: ClassProperty
-        private UsersPageModel _ClassProperty = new UsersPageModel();
-        public UsersPageModel ClassProperty { get { return _ClassProperty; } set { _ClassProperty = value; this.RaisePropertyChanged(nameof(ClassProperty)); } }
+        // key: rpro, datatype: StudentPageModel, property: ClassProperty
+        private StudentPageModel _ClassProperty = new StudentPageModel();
+        public StudentPageModel ClassProperty { get { return _ClassProperty; } set { _ClassProperty = value; this.RaisePropertyChanged(nameof(ClassProperty)); } }
 
         #region events and delegates
-        public DelegateCommand FetchCommand { get; set; }
+        public DelegateCommand GearCommand { get; set; }
+        public DelegateCommand ShowStudentsCommand { get; set; }
         public DelegateCommand<object> ItemTappedCommand { get; set; }
         #endregion
 
@@ -31,42 +33,53 @@ namespace GothongApp.ViewModels
         private INavigationService navigationService;
         private readonly RestService restService;
         private readonly NetworkHelper networkHelper;
+        private StudentDataTable studentTable = new StudentDataTable();
         CancellationTokenSource cts;
         #endregion
 
-        public UsersPageViewModel(INavigationService _navigationService, RestService _restService, NetworkHelper _networkHelper) : base(_navigationService)
+        public StudentsPageViewModel(INavigationService _navigationService, RestService _restService, NetworkHelper _networkHelper) : base(_navigationService)
         {
             navigationService = _navigationService;
             networkHelper = _networkHelper;
             restService = _restService;
             restService.RestResponseDelegate = this;
 
-            FetchCommand = new DelegateCommand(FetchControl);
+            ShowStudentsCommand = new DelegateCommand(ShowStudentsControl);
+            GearCommand = new DelegateCommand(GearControl);
             ItemTappedCommand = new DelegateCommand<object>(ItemTappedAction);
         }
 
-        async private void FetchControl()
+        async private void GearControl()
         {
-            // if validated
-            //await GetStudents();
+            var action = await Acr.UserDialogs.UserDialogs.Instance.ActionSheetAsync(null, "Cancel", null, null, "Student Form", "Statuses");
 
-            GetCacheStudents();
+            if(action.Equals("Student Form"))
+            {
+                await navigationService.NavigateAsync(Constants.StudentFormPopupPage, animated: true);
+            }
         }
 
-        private void GetCacheStudents()
+        async private void ShowStudentsControl()
         {
-            ClassProperty.Students = JsonConvert.DeserializeObject<ObservableCollection<StudentModel>>(DataStorage.GetInstance.CacheStudents);
+            //await GetStudents();
+            GetLocalStudents();
+        }
+
+        private void GetLocalStudents()
+        {
+            ClassProperty.Students = studentTable.GetStudents();
+            ClassProperty.HasData = ClassProperty.Students.Count() > 0;
         }
 
         private void ItemTappedAction(object obj)
         {
-            var usr = obj as StudentModel;
-            LogConsole.AsyncOutput(this, usr.Firstname);
+            var stud = obj as StudentModel;
+            LogConsole.AsyncOutput(this, stud.Firstname);
 
             NavigationParameters navParams = new NavigationParameters();
-            navParams.Add("UserItem", usr);
+            navParams.Add("StudentItem", stud);
 
-            navigationService.NavigateAsync(Constants.UserDetailPage, parameters: navParams, animated: true);
+            //navigationService.NavigateAsync(Constants.StudentDetailPage, parameters: navParams, animated: true);
         }
 
         private async Task GetStudents()

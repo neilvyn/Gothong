@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="GothongApp.Controls.CustomView.StudentViewCell" xmlns:scale="clr-namespace:GothongApp.Controls.Scale" xmlns:predef="clr-namespace:GothongApp.Services.Predefined" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" x:Name="parent">
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="{scale:ScaleThickness Value='10,5,0,5'}" Spacing="{scale:ScaleWidth Value=5}">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                <Label Text="{Binding Source={Reference parent}, Path=Firstname}" TextColor="Black" FontSize="{scale:ScaleFontSize Value=14}" />
+                <Label Text="{Binding Source={Reference parent}, Path=Lastname}" TextColor="Black" FontSize="{scale:ScaleFontSize Value=14}" />
+            </StackLayout>
+        </StackLayout>
+        <StackLayout HorizontalOptions="FillAndExpand" Padding="{scale:ScaleThickness Value='10,0,10,0'}">
+            <BoxView BackgroundColor="#80d1d1d1" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+        </StackLayout>
+    </StackLayout>
+</ContentView>

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Prism;
+using Prism.Ioc;
 using UIKit;
 
 namespace GothongApp.iOS
@@ -19,10 +21,11 @@ namespace GothongApp.iOS
             App.StatusBarHeight = Math.Min(StatusBarSize.Width, StatusBarSize.Height);
 
             global::Xamarin.Forms.Forms.Init();
-
-            LoadApplication(new App(new iOSInitializer()));
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             Rg.Plugins.Popup.Popup.Init();
+
+            LoadApplication(new App(new iOSInitializer()));
+            
 
             return base.FinishedLaunching(app, options);
         }

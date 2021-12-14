@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="GothongApp.Views.StudentsPage" NavigationPage.HasNavigationBar="false" xmlns:scale="clr-namespace:GothongApp.Controls.Scale" xmlns:predef="clr-namespace:GothongApp.Services.Predefined" xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" xmlns:customView="clr-namespace:GothongApp.Controls.CustomView">
+
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Background="#d1d1d1" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="{scale:ScaleThickness Value='10,20,10,0'}">
+            <StackLayout WidthRequest="{scale:ScaleWidth Value=40}" HorizontalOptions="Start" VerticalOptions="FillAndExpand">
+                <Image Source="" WidthRequest="{scale:ScaleWidthDouble Value=18}" HeightRequest="{scale:ScaleWidthDouble Value=18}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+            <Label Text="Students" FontSize="{scale:ScaleFontSize Value=16}" TextColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" />
+            <StackLayout WidthRequest="{scale:ScaleWidth Value=40}" HorizontalOptions="Start" VerticalOptions="FillAndExpand">
+                <Image Source="TopBarGear" WidthRequest="{scale:ScaleWidthDouble Value=18}" HeightRequest="{scale:ScaleWidthDouble Value=18}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GearCommand}" NumberOfTapsRequired="1" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </StackLayout>
+
+        <Grid Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Spacing="0" Margin="{scale:ScaleThickness Value='0,-20,0,0'}">
+                <Image Source="UserIcon" WidthRequest="{scale:ScaleWidth Value=45}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                <Label Text="No Students Found!" TextColor="Black" FontSize="{scale:ScaleFontSize Value=13}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Margin="{scale:ScaleThickness Value='0,10,0,0'}" />
+                <Label Text="Tap the button below to fetch." TextColor="Black" FontSize="{scale:ScaleFontSize Value=11}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Margin="{scale:ScaleThickness Value='0,10,0,0'}" />
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout" Binding="{Binding ClassProperty.HasData}" Value="True">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </DataTrigger>
+                </StackLayout.Triggers>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding ClassProperty.HasData}" Padding="{scale:ScaleThickness Value='10,0,10,0'}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                </Grid>
+
+                <Label Grid.Row="0" Text="Fetched Student Data" />
+                <ListView Grid.Row="1" ItemsSource="{Binding ClassProperty.Original}" BackgroundColor="Transparent" HasUnevenRows="True" SeparatorColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" ItemSelected="ListView_ItemSelected" ItemTapped="ListView_ItemTapped" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <customView:StudentViewCell Lastname="{Binding Lastname}" Firstname="{Binding Firstname}" />
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="ItemTapped" EventArgsParameterPath="Item" Command="{Binding ItemTappedCommand}"/>
+                    </ListView.Behaviors>
+                </ListView>
+
+                <Label Grid.Row="2" Text="No Duplicate Users" />
+                <ListView Grid.Row="3" ItemsSource="{Binding ClassProperty.Filtered}" BackgroundColor="Transparent" HasUnevenRows="True" SeparatorColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" ItemSelected="ListView_ItemSelected" ItemTapped="ListView_ItemTapped" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <customView:StudentViewCell StudentId="{Binding StudentId}" Firstname="{Binding Firstname}" Lastname="{Binding Lastname}" />
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="ItemTapped" EventArgsParameterPath="Item" Command="{Binding ItemTappedCommand}"/>
+                    </ListView.Behaviors>
+                </ListView>
+            </StackLayout>
+        </Grid>
+
+        <StackLayout Grid.Row="2" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Padding="{scale:ScaleThickness Value='0,0,0,20'}">
+            <Button Text="Show Users" Command="{Binding ShowUsersCommand}" BackgroundColor="{x:Static predef:Constants.BUTTON_COLOR}" TextColor="White" BorderColor="{x:Static predef:Constants.BUTTON_COLOR}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+        </StackLayout>
+    </Grid>
+</ContentPage>

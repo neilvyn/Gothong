@@ -11,10 +11,10 @@ using GothongApp.Views;
 using GothongApp.ViewModels;
 using System.Collections.Generic;
 using GothongApp.Models;
-using RandomNameGeneratorLibrary;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using GothongApp.Controls.LocalData;
 
 namespace GothongApp
 {
@@ -43,36 +43,18 @@ namespace GothongApp
             // Instantiate possible services (Session, Permissions, Socket, Analytics, Subscription Keys, etc)
 
             // Page Redirections
-            NavigationService.NavigateAsync(Constants.UsersPage);
+            NavigationService.NavigateAsync(Constants.StudentsPage);
 
             // Dummy Records
-            AddStatuses();
-            AddStudents();
-        }
-
-        private void AddStatuses()
-        {
-            ObservableCollection<StatusModel> stats = new ObservableCollection<StatusModel>();
-
-            stats.Add(new StatusModel { StatusId = 1, StatusCode = "Online" });
-            stats.Add(new StatusModel { StatusId = 1, StatusCode = "Offline" });
-
-            DataStorage.GetInstance.CacheStatuses = JsonConvert.SerializeObject(stats);
-        }
-
-        private void AddStudents()
-        {
-            List<StudentModel> studs = new List<StudentModel>();
-
-            studs.Add(new StudentModel { StudentId = 1, Firstname = "Juan", Lastname = "Dela Cruz", Birthday = DateTime.Today, Gender = 1, Address = "Cebu City", StatusId = 1 });
-            studs.Add(new StudentModel { StudentId = 2, Firstname = "Alex", Lastname = "Dela Cruz", Birthday = DateTime.Today, Gender = 1, Address = "Cebu City", StatusId = 0 });
-            DataStorage.GetInstance.CacheStudents = JsonConvert.SerializeObject(studs);
+            DataStorage storage = new DataStorage();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterPopupNavigationService();
             containerRegistry.RegisterForNavigation<NavigationPage>(Constants.NAVIGATION_PAGE);
-            containerRegistry.RegisterForNavigation<UsersPage, UsersPageViewModel>(Constants.UsersPage);
+            containerRegistry.RegisterForNavigation<StudentsPage, StudentsPageViewModel>(Constants.StudentsPage);
+            containerRegistry.RegisterForNavigation<StudentFormPopupPage, StudentFormPopupPageViewModel>(Constants.StudentFormPopupPage);
 
             containerRegistry.RegisterInstance<INetworkHelper>(NetworkHelper);
             containerRegistry.RegisterInstance<IRestService>(RestServices);

@@ -68,6 +68,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controls\LocalData\SQLite.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -149,6 +150,9 @@
     <PackageReference Include="Xamarin.FFImageLoading.Transformations">
       <Version>2.4.11.982</Version>
     </PackageReference>
+    <PackageReference Include="sqlite-net-pcl">
+      <Version>1.8.116</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -156,5 +160,14 @@
       <Project>{A7549868-77BA-46AD-8262-E634923B4496}</Project>
       <Name>GothongApp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
+    <Folder Include="Controls\LocalData\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\TopBarClose.png" />
+    <BundleResource Include="Resources\TopBarGear.png" />
+    <BundleResource Include="Resources\TopBarLess.png" />
   </ItemGroup>
 </Project>

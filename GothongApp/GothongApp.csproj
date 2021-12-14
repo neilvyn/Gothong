@@ -21,6 +21,7 @@
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
@@ -34,5 +35,7 @@
     <Folder Include="Controls\Utilities\" />
     <Folder Include="Models\View\" />
     <Folder Include="Controls\Scale\" />
+    <Folder Include="Controls\LocalData\" />
+    <Folder Include="Controls\CustomView\" />
   </ItemGroup>
 </Project>

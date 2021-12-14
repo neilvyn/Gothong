@@ -1,5 +1,6 @@
 ﻿using System;
 using Prism.Mvvm;
+using SQLite;
 
 namespace GothongApp.Models
 {
@@ -7,6 +8,7 @@ namespace GothongApp.Models
     {
         // key: rpro, datatype: int, property: StatusId
         private int _StatusId;
+        [PrimaryKey, AutoIncrement]
         public int StatusId { get { return _StatusId; } set { _StatusId = value; this.RaisePropertyChanged(nameof(StatusId)); } }
 
         // key: rpro, datatype: string, property: StatusCode

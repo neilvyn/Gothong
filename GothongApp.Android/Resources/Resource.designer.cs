@@ -15559,6 +15559,15 @@ namespace GothongApp.Droid
 			// aapt resource value: 0x7F070079
 			public const int tooltip_frame_light = 2131165305;
 			
+			// aapt resource value: 0x7F07007A
+			public const int TopBarClose = 2131165306;
+			
+			// aapt resource value: 0x7F07007B
+			public const int TopBarGear = 2131165307;
+			
+			// aapt resource value: 0x7F07007C
+			public const int TopBarLess = 2131165308;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
